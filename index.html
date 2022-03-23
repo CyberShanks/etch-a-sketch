@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="./master.css">
+    <script src="./config.js" defer></script>
+</head>
+
+<body>
+    <h1>Etch-a-Sketch!</h1>
+    <div id="container">
+        <div id="controls">
+            <div>
+                <input type="checkbox" id="rgb" name="rgb">
+                <label for="rgb">RGB</label>
+            </div>
+            <div>
+                <label for="fader">Num-Boxes</label>
+                <input type="range" id="fader" min="16" max="64" value="16" step="1" aria-valuemin="16"
+                    aria-valuemax="64" aria-valuenow="16" oninput="outputUpdate(value)">
+                <output for="fader" id="num-box">16</output>
+            </div>
+            <!-- Will Contain a checkbox and a slider to control #boxes that are generated-->
+        </div>
+        <div id="main-grid">
+            <!-- Contains #boxes that have been selected through the slider.-->
+            <!-- On click and hover over box, box gets coloured-->
+        </div>
+    </div>
+</body>
+
+</html>
