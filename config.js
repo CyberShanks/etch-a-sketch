@@ -2,30 +2,51 @@
 let sliderNode = document.querySelector('#slider')
 sliderNode = document.addEventListener('input', outputUpdate);
 
-
-
-
-
 function outputUpdate(e) {
-    //
-    var value = document.getElementById("slider").value;
-    console.log(value);
+    var value = document.getElementById("slider").value; //slider value
+    console.log("function value -> " + value);
     outputNode = document.querySelector('#num-box');
     outputNode.textContent = value;
-    //slider value is buggy. if you move slider up and down then more and more boxes keep on being generated. Also, initially no boxes are generated.
-/*OnChange vs OnInput... I think OnChange needs to be used, and the number of boxes that need to be generated should come from how many the user has selected through the slider.*/
+
+    //call function to generate square number of boxes
+    displayBox(value**2);
+
+}
+
+function displayBox(boxValueReq) {
+    //selects the main box. INITIALIZE THE DEFAULT HERE
+    grid = document.querySelector('#main-grid');
+
+    childCount = grid.childElementCount
+
+    if (boxValueReq > childCount) {
+        //add number of boxes required which is the difference between current and required
+        for (; childCount <= boxValueReq; childCount++) {
+            box = document.createElement('div');
+            box.classList.add('box');
+            grid.appendChild(box);
+        }
+    }
     
-
-
-    container = document.querySelector('#main-grid');
-    //create box and style it
-    box = document.createElement('div');
-    //add class to it
-    box.classList.add('box');
-    //get current number of boxes, and then compare that with the value on the slider, and then add or subtract boxes accordingly
-    for (let index = 0; index < value; index++) {
-        container.appendChild(box);
+    else if (boxValueReq < childCount) {
+        //this might not work because box is a newnode, not a childnode...
+        for (; childCount >= boxValueReq; childCount--) {
+            removeBox = document.querySelector('.box');
+            grid.removeChild(removeBox);
+        }
     }
 }
 
+//initializes initial number of boxes in grid
+window.addEventListener('load', (e) => {
+    var value = document.getElementById("slider").value;
+    console.log("loaded, value = " + value);
+    const grid = document.querySelector('#main-grid');
+    console.log("child elements = " + grid.childElementCount);
 
+    for (let counter = 0; counter < (value**2); counter++) {
+        var box = document.createElement('div');
+        box.classList.add('box');
+        grid.appendChild(box);
+    }
+});
