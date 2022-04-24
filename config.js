@@ -5,7 +5,10 @@ let sliderNode = document.querySelector('#slider')
 const mainGridNode = document.querySelector('#main-grid');
 
 mainGridNode.addEventListener('mousedown', coloring);
-mainGridNode.addEventListener('mouseup', () => mainGridNode.removeEventListener('mouseover', blackColor));
+mainGridNode.addEventListener('mouseup', () => {
+    mainGridNode.removeEventListener('mouseover', blackColor);
+    mainGridNode.removeEventListener('mouseover', rgbColor);
+});
 //NEED TO STOP COLORING WHEN MOUSE BUTTON IS UP
 // mainGridNode.addEventListener('mouseup', stopper);
 //refactor code -> add event listener to main-grid, and then color boxes on mousechange event, with help of bubbling
@@ -57,22 +60,37 @@ function coloring() {
     let RGBCheck = document.querySelector('#rgb').checked;
     //check mousebutton is still down, otherwise return
     if (RGBCheck) {
-        //if RGB enabled, color
+        mainGridNode.addEventListener('mouseover',  rgbColor);
     }
     else {
-        //color boxes black when mouse goes over them
         // add event listerer to parent, when hover, event bubbles and then we check the target
-        // make the function have option once:true; 
         mainGridNode.addEventListener('mouseover',  blackColor, {
-            once: false
+            once: false //false so that you can keep on coloring while mouse is down. Do not need to specify, this is the default value
         });
     }
 }
 
+function rgbColor(e) {
+    console.log(e);
+    var colorCommand = getColor();
+    if (e.target.matches('.box')) {
+        e.target.style['background-color'] = colorCommand; 
+    }
+}
+
+function getColor(){ 
+    // return "hsl(" + 360 * Math.random() + ',' +
+    //            (25 + 70 * Math.random()) + '%,' + 
+    //            (85 + 10 * Math.random()) + '%)'
+
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+    return "#" + randomColor;
+  }
+
 function blackColor(e) {
         console.log(e);
         if (e.target.matches('.box')) {
-            e.target.classList.add('black'); 
+            e.target.style['background-color'] = 'black'; 
         }
 }
 
