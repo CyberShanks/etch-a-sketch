@@ -1,17 +1,24 @@
 //add event listener to slider
-let sliderNode = document.querySelector('#slider')
+const sliderNode = document.querySelector('#slider')
 
 //add event listener to main-grid
 const mainGridNode = document.querySelector('#main-grid');
+
+//add event listener to clear button
+const clearBtn = document.querySelector('#clr');
+
+clearBtn.addEventListener('click', () => {
+    boxes = document.querySelectorAll('.box');
+    boxes.forEach(box => {
+        box.style['background-color'] = 'white';
+    });
+});
 
 mainGridNode.addEventListener('mousedown', coloring);
 mainGridNode.addEventListener('mouseup', () => {
     mainGridNode.removeEventListener('mouseover', blackColor);
     mainGridNode.removeEventListener('mouseover', rgbColor);
 });
-//NEED TO STOP COLORING WHEN MOUSE BUTTON IS UP
-// mainGridNode.addEventListener('mouseup', stopper);
-//refactor code -> add event listener to main-grid, and then color boxes on mousechange event, with help of bubbling
 
 sliderNode.addEventListener('input', outputUpdate);
 
@@ -31,7 +38,6 @@ function displayBox(e) {
     //selects the main box
     grid = document.querySelector('#main-grid');
     childCount = grid.childElementCount
-    console.log(childCount);
     if (boxValueReq > childCount) {
         for (; childCount < boxValueReq; childCount++) {
             box = document.createElement('div');
@@ -71,7 +77,6 @@ function coloring() {
 }
 
 function rgbColor(e) {
-    console.log(e);
     var colorCommand = getColor();
     if (e.target.matches('.box')) {
         e.target.style['background-color'] = colorCommand; 
@@ -88,7 +93,6 @@ function getColor(){
   }
 
 function blackColor(e) {
-        console.log(e);
         if (e.target.matches('.box')) {
             e.target.style['background-color'] = 'black'; 
         }

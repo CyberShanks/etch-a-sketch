@@ -17,23 +17,29 @@ body {
     justify-content: center;
     align-items: center;
     padding: 5px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin: 20px;
+    gap: 20px;
 }
 
 #main-grid {
-    padding: 5px;
-    border-style: double;
-    border-width: 5px;
-    height: 500px;
-    width: 500px;
+    border-style: solid;
+    width: 500px; /*chromium dimensions => 500px*/
+    height: 500px; /*chromium dimensions => 500px*/
     display: flex;
     flex-wrap: wrap;
+
 }
 
 .box {
-    margin: 1px;
+    margin: 0;
     padding: 0;
-    border-width: 2px;
-    width: 20px;
-    height: 20px;
-    border-style: dashed;
+    border-width: 0px;
+    width: 50px; /*chromium dimensions => 50px*/
+    height: 50px; /*chromium dimensions => 50px*/
+    border-style: solid;
 }
+
+/*Normal box width -> 10x10boxes = 50x50pixels on a 500x500 canvas
+Adjusted box width -> 11x11boxes = 500/11 x 500/11pixels on a 500x500canvas*/
