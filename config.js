@@ -5,7 +5,10 @@ let sliderNode = document.querySelector('#slider')
 const mainGridNode = document.querySelector('#main-grid');
 
 mainGridNode.addEventListener('mousedown', coloring);
+mainGridNode.addEventListener('mouseup', () => mainGridNode.removeEventListener('mouseover', blackColor));
 //NEED TO STOP COLORING WHEN MOUSE BUTTON IS UP
+// mainGridNode.addEventListener('mouseup', stopper);
+//refactor code -> add event listener to main-grid, and then color boxes on mousechange event, with help of bubbling
 
 sliderNode.addEventListener('input', outputUpdate);
 
@@ -48,7 +51,7 @@ function displayBox(e) {
     });
 }
 
-function coloring(e) {
+function coloring() {
     //on mousedown, add pseudoclass of hover to divs to either cause them to turn black upon hover, OR RGB.
     //condition to check if RGB is enabled
     let RGBCheck = document.querySelector('#rgb').checked;
@@ -58,13 +61,21 @@ function coloring(e) {
     }
     else {
         //color boxes black when mouse goes over them
-        boxes = document.querySelectorAll('.box');
-        boxes.forEach(box => {
-            box.addEventListener('mouseover', () => box.classList.add('black'))
+        // add event listerer to parent, when hover, event bubbles and then we check the target
+        // make the function have option once:true; 
+        mainGridNode.addEventListener('mouseover',  blackColor, {
+            once: false
         });
     }
-
 }
+
+function blackColor(e) {
+        console.log(e);
+        if (e.target.matches('.box')) {
+            e.target.classList.add('black'); 
+        }
+}
+
 
 
 //initializes initial number of boxes in grid
